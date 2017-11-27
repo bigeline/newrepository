@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.test.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.demo.test.entity.User">
+        <id column="user_id" jdbcType="INTEGER" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
+    <select id="getAllUser" resultMap="BaseResultMap">
+        select
+        *
+        from
+        user
+    </select>
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sf_bill_cost
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.kai.entity.SfBillCost">
+        insert into sf_bill_cost (id, pid, bill_id,
+        type, user_id, cost_id, pay_type,
+        pay_target, price, add_time
+        )
+        values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{billId,jdbcType=INTEGER},
+        #{type,jdbcType=BIT}, #{userId,jdbcType=INTEGER}, #{costId,jdbcType=INTEGER}, #{payType,jdbcType=VARCHAR},
+        #{payTarget,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.kai.entity.SfBillCost">
+        update sf_bill_cost
+        set pid = #{pid,jdbcType=INTEGER},
+        bill_id = #{billId,jdbcType=INTEGER},
+        type = #{type,jdbcType=BIT},
+        user_id = #{userId,jdbcType=INTEGER},
+        cost_id = #{costId,jdbcType=INTEGER},
+        pay_type = #{payType,jdbcType=VARCHAR},
+        pay_target = #{payTarget,jdbcType=VARCHAR},
+        price = #{price,jdbcType=DECIMAL},
+        add_time = #{addTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>-->
+</mapper>

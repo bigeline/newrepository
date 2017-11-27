@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+                         http://www.springframework.org/schema/aop
+                         http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+                         http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+    <context:component-scan base-package="com.demo.test"/>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <bean id="001" class="com.demo.test.interceptors.MyInterceptor01"/>
+    </mvc:interceptors>
+
+    <bean id="UserSpeak" class="com.demo.test.aspect.UserSpeak"></bean>
+    <bean id="dataSourceAspect" class="com.demo.test.dynamicDataSource.DataSourceAspect"></bean>
+    <aop:config>
+        <aop:aspect ref="dataSourceAspect">
+            <aop:before pointcut="execution(* com.demo.*.service.*.*(..))" method="intercept"/>
+        </aop:aspect>
+        <aop:aspect ref="UserSpeak">
+            <aop:before pointcut="execution(** com.demo.test.controller.*.*(..))" method="beforeSpeak"/>
+            <aop:around pointcut="execution(** com.demo.test.controller.*.*(..))" method="around"/>
+            <aop:after pointcut="execution(** com.demo.test.controller.*.*(..))" method="afterSpeak"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="10485760000"/>
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+</beans>
