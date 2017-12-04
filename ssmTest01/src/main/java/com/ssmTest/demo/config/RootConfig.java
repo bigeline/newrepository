@@ -1,12 +1,10 @@
 package com.ssmTest.demo.config;
 
+import com.ssmTest.demo.aspects.Aspect01;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -24,7 +22,7 @@ public class RootConfig {
     public BasicDataSource dataSource() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false");
+        ds.setUrl("jdbc:mysql://localhost:3306/test");
         ds.setUsername("root");
         ds.setPassword("root");
         ds.setInitialSize(5);
@@ -41,4 +39,6 @@ public class RootConfig {
         sqlSessionFactoryBean.setMapperLocations(resourcePatternResolver.getResources("classpath*:/*Mapper.xml"));
         return sqlSessionFactoryBean;
     }
+
+
 }

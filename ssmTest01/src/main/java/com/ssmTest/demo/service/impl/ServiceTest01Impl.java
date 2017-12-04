@@ -13,7 +13,9 @@ public class ServiceTest01Impl implements ServiceTest01 {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
     public List<User> getAllUser() {
-        return userMapper.getAllUser();
+        List<User> allUser = userMapper.getAllUser();
+        return allUser;
     }
 }

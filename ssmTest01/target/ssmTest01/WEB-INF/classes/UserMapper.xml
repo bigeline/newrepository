@@ -4,8 +4,8 @@
 
 <mapper namespace="com.ssmTest.demo.mapper.UserMapper">
     <resultMap type="com.ssmTest.demo.entity.User" id="User">
-        <result property="id" column="id" />
-        <result property="userName" column="userName" />
+        <result property="id" column="user_id" />
+        <result property="userName" column="user_name" />
     </resultMap>
 
     <select id="getAllUser" resultMap="User">

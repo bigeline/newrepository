@@ -1,9 +1,11 @@
 package com.ssmTest.demo.config;
 
 import com.ssmTest.demo.MarketInterface;
+import com.ssmTest.demo.aspects.Aspect01;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
+@EnableAspectJAutoProxy
 @ComponentScan(basePackageClasses = MarketInterface.class)
 public class WebConfig {
     //配置JSP视图解析器
@@ -27,5 +30,10 @@ public class WebConfig {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
 
+    }
+
+    @Bean
+    public Aspect01 aspect01() {
+        return new Aspect01();
     }
 }

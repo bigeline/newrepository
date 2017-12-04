@@ -16,20 +16,23 @@ import java.util.List;
 public class TestController {
     @Autowired
     private ServiceTest01 serviceTest01Impl;
+
     @RequestMapping(value = "method01", method = RequestMethod.GET)
     public String method01() {
         System.out.println("方法测试01");
         return "home01";
     }
+
     @RequestMapping(value = "method02", method = RequestMethod.GET)
     public String method02() {
         System.out.println("方法测试02");
-        List<User> list = serviceTest01Impl.getAllUser();
-        for(User user:list){
+        List<User> allUser = serviceTest01Impl.getAllUser();
+        for (User user : allUser) {
             System.out.println(user.toString());
         }
         return "home01";
     }
+
     @RequestMapping(value = "method03", method = RequestMethod.GET)
     public String method03(String url) {
         try {

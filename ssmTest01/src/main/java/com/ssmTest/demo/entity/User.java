@@ -4,14 +4,6 @@ public class User {
     private int id;
     private String userName;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                '}';
-    }
-
     public int getId() {
         return id;
     }
@@ -26,5 +18,13 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }
