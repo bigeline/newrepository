@@ -15,7 +15,7 @@ public class ServiceTest01Impl implements ServiceTest01 {
 
     @Override
     public List<User> getAllUser() {
-        List<User> allUser = userMapper.getAllUser();
-        return allUser;
+        return userMapper.getAllUser();
     }
+
 }

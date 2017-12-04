@@ -7,8 +7,7 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
-    /**
-     * 获取所有用户
-     */
     List<User> getAllUser();
+
+    int insert(User user);
 }

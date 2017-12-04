@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssmTest.demo.mapper.UserMapper">
+    <resultMap type="com.ssmTest.demo.entity.User" id="User">
+        <result property="id" column="user_id"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+
+    <select id="getAllUser" resultMap="User">
+        SELECT
+        *
+        FROM
+        user
+    </select>
+
+    <insert id="insert" parameterType="com.ssmTest.demo.entity.User">
+        insert into
+        user
+        (
+        user_id,
+        user_name
+        )
+        values
+        (
+        #{id,jdbcType=INTEGER},
+        #{userName,jdbcType=VARCHAR}
+        )
+        ON DUPLICATE KEY UPDATE
+        user_id=#{id,jdbcType=INTEGER},
+        user_name=#{userName,jdbcType=VARCHAR}
+    </insert>
+
+    <!--<insert id="insertUser">
+        INSERT INTO user (id,name,age) VALUES (#{id},#{name},#{age})
+    </insert>
+
+    <update id="updateUser" parameterType="com.test.domain.User">
+        UPDATE user SET name=#{name},age=#{name} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM user WHERE id=#{id}
+    </delete>-->
+
+</mapper>

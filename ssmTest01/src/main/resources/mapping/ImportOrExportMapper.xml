@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssmTest.demo.mapper.ImportOrExportMapper">
+    <resultMap id="BaseResultMap" type="com.ssmTest.demo.entity.ImportOrExport">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="bl_no" jdbcType="VARCHAR" property="blNo"/>
+        <result column="ctn_gross_weight" jdbcType="DOUBLE" property="ctnGrossWeight"/>
+        <result column="ctn_no" jdbcType="VARCHAR" property="ctnNo"/>
+        <result column="ctn_operator_code" jdbcType="VARCHAR" property="ctnOperatorCode"/>
+        <result column="ctn_size_type" jdbcType="VARCHAR" property="ctnSizeType"/>
+        <result column="ctn_status" jdbcType="VARCHAR" property="ctnStatus"/>
+        <result column="direct" jdbcType="VARCHAR" property="direct"/>
+        <result column="dl_port_code" jdbcType="VARCHAR" property="dlPortCode"/>
+        <result column="in_gate_time" jdbcType="TIMESTAMP" property="inGateTime"/>
+        <result column="msg_receive_time" jdbcType="TIMESTAMP" property="msgReceiveTime"/>
+        <result column="seal_no" jdbcType="VARCHAR" property="sealNo"/>
+        <result column="sender_code" jdbcType="VARCHAR" property="senderCode"/>
+        <result column="vessel" jdbcType="VARCHAR" property="vessel"/>
+        <result column="voyage" jdbcType="VARCHAR" property="voyage"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, bl_no, ctn_gross_weight, ctn_no, ctn_operator_code, ctn_size_type, ctn_status, 
+    direct, dl_port_code, in_gate_time, msg_receive_time, seal_no, sender_code, vessel, 
+    voyage
+  </sql>
+    <select id="selectByExample" parameterType="com.ssmTest.demo.entity.ImportOrExportExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from import_or_export
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from import_or_export
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from import_or_export
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.ssmTest.demo.entity.ImportOrExportExample">
+        delete from import_or_export
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.ssmTest.demo.entity.ImportOrExport">
+    insert into import_or_export (id, bl_no, ctn_gross_weight, 
+      ctn_no, ctn_operator_code, ctn_size_type, 
+      ctn_status, direct, dl_port_code, 
+      in_gate_time, msg_receive_time, seal_no, 
+      sender_code, vessel, voyage
+      )
+    values (#{id,jdbcType=VARCHAR}, #{blNo,jdbcType=VARCHAR}, #{ctnGrossWeight,jdbcType=DOUBLE}, 
+      #{ctnNo,jdbcType=VARCHAR}, #{ctnOperatorCode,jdbcType=VARCHAR}, #{ctnSizeType,jdbcType=VARCHAR}, 
+      #{ctnStatus,jdbcType=VARCHAR}, #{direct,jdbcType=VARCHAR}, #{dlPortCode,jdbcType=VARCHAR}, 
+      #{inGateTime,jdbcType=TIMESTAMP}, #{msgReceiveTime,jdbcType=TIMESTAMP}, #{sealNo,jdbcType=VARCHAR}, 
+      #{senderCode,jdbcType=VARCHAR}, #{vessel,jdbcType=VARCHAR}, #{voyage,jdbcType=VARCHAR}
+      )
+       ON DUPLICATE KEY UPDATE
+            bl_no = #{blNo,jdbcType=VARCHAR},
+            ctn_gross_weight = #{ctnGrossWeight,jdbcType=DOUBLE},
+            ctn_no = #{ctnNo,jdbcType=VARCHAR},
+            ctn_operator_code = #{ctnOperatorCode,jdbcType=VARCHAR},
+            ctn_size_type = #{ctnSizeType,jdbcType=VARCHAR},
+            ctn_status = #{ctnStatus,jdbcType=VARCHAR},
+            direct = #{direct,jdbcType=VARCHAR},
+            dl_port_code = #{dlPortCode,jdbcType=VARCHAR},
+            in_gate_time = #{inGateTime,jdbcType=TIMESTAMP},
+            msg_receive_time = #{msgReceiveTime,jdbcType=TIMESTAMP},
+            seal_no = #{sealNo,jdbcType=VARCHAR},
+            sender_code = #{senderCode,jdbcType=VARCHAR},
+            vessel = #{vessel,jdbcType=VARCHAR},
+            voyage = #{voyage,jdbcType=VARCHAR}
+  </insert>
+    <insert id="insertSelective" parameterType="com.ssmTest.demo.entity.ImportOrExport">
+        insert into import_or_export
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="blNo != null">
+                bl_no,
+            </if>
+            <if test="ctnGrossWeight != null">
+                ctn_gross_weight,
+            </if>
+            <if test="ctnNo != null">
+                ctn_no,
+            </if>
+            <if test="ctnOperatorCode != null">
+                ctn_operator_code,
+            </if>
+            <if test="ctnSizeType != null">
+                ctn_size_type,
+            </if>
+            <if test="ctnStatus != null">
+                ctn_status,
+            </if>
+            <if test="direct != null">
+                direct,
+            </if>
+            <if test="dlPortCode != null">
+                dl_port_code,
+            </if>
+            <if test="inGateTime != null">
+                in_gate_time,
+            </if>
+            <if test="msgReceiveTime != null">
+                msg_receive_time,
+            </if>
+            <if test="sealNo != null">
+                seal_no,
+            </if>
+            <if test="senderCode != null">
+                sender_code,
+            </if>
+            <if test="vessel != null">
+                vessel,
+            </if>
+            <if test="voyage != null">
+                voyage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="blNo != null">
+                #{blNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnGrossWeight != null">
+                #{ctnGrossWeight,jdbcType=DOUBLE},
+            </if>
+            <if test="ctnNo != null">
+                #{ctnNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnOperatorCode != null">
+                #{ctnOperatorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnSizeType != null">
+                #{ctnSizeType,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnStatus != null">
+                #{ctnStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="direct != null">
+                #{direct,jdbcType=VARCHAR},
+            </if>
+            <if test="dlPortCode != null">
+                #{dlPortCode,jdbcType=VARCHAR},
+            </if>
+            <if test="inGateTime != null">
+                #{inGateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="msgReceiveTime != null">
+                #{msgReceiveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sealNo != null">
+                #{sealNo,jdbcType=VARCHAR},
+            </if>
+            <if test="senderCode != null">
+                #{senderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="vessel != null">
+                #{vessel,jdbcType=VARCHAR},
+            </if>
+            <if test="voyage != null">
+                #{voyage,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.ssmTest.demo.entity.ImportOrExportExample"
+            resultType="java.lang.Long">
+        select count(*) from import_or_export
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update import_or_export
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.blNo != null">
+                bl_no = #{record.blNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ctnGrossWeight != null">
+                ctn_gross_weight = #{record.ctnGrossWeight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.ctnNo != null">
+                ctn_no = #{record.ctnNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ctnOperatorCode != null">
+                ctn_operator_code = #{record.ctnOperatorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ctnSizeType != null">
+                ctn_size_type = #{record.ctnSizeType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ctnStatus != null">
+                ctn_status = #{record.ctnStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.direct != null">
+                direct = #{record.direct,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dlPortCode != null">
+                dl_port_code = #{record.dlPortCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.inGateTime != null">
+                in_gate_time = #{record.inGateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.msgReceiveTime != null">
+                msg_receive_time = #{record.msgReceiveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.sealNo != null">
+                seal_no = #{record.sealNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.senderCode != null">
+                sender_code = #{record.senderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.vessel != null">
+                vessel = #{record.vessel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.voyage != null">
+                voyage = #{record.voyage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update import_or_export
+        set id = #{record.id,jdbcType=VARCHAR},
+        bl_no = #{record.blNo,jdbcType=VARCHAR},
+        ctn_gross_weight = #{record.ctnGrossWeight,jdbcType=DOUBLE},
+        ctn_no = #{record.ctnNo,jdbcType=VARCHAR},
+        ctn_operator_code = #{record.ctnOperatorCode,jdbcType=VARCHAR},
+        ctn_size_type = #{record.ctnSizeType,jdbcType=VARCHAR},
+        ctn_status = #{record.ctnStatus,jdbcType=VARCHAR},
+        direct = #{record.direct,jdbcType=VARCHAR},
+        dl_port_code = #{record.dlPortCode,jdbcType=VARCHAR},
+        in_gate_time = #{record.inGateTime,jdbcType=TIMESTAMP},
+        msg_receive_time = #{record.msgReceiveTime,jdbcType=TIMESTAMP},
+        seal_no = #{record.sealNo,jdbcType=VARCHAR},
+        sender_code = #{record.senderCode,jdbcType=VARCHAR},
+        vessel = #{record.vessel,jdbcType=VARCHAR},
+        voyage = #{record.voyage,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ssmTest.demo.entity.ImportOrExport">
+        update import_or_export
+        <set>
+            <if test="blNo != null">
+                bl_no = #{blNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnGrossWeight != null">
+                ctn_gross_weight = #{ctnGrossWeight,jdbcType=DOUBLE},
+            </if>
+            <if test="ctnNo != null">
+                ctn_no = #{ctnNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnOperatorCode != null">
+                ctn_operator_code = #{ctnOperatorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnSizeType != null">
+                ctn_size_type = #{ctnSizeType,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnStatus != null">
+                ctn_status = #{ctnStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="direct != null">
+                direct = #{direct,jdbcType=VARCHAR},
+            </if>
+            <if test="dlPortCode != null">
+                dl_port_code = #{dlPortCode,jdbcType=VARCHAR},
+            </if>
+            <if test="inGateTime != null">
+                in_gate_time = #{inGateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="msgReceiveTime != null">
+                msg_receive_time = #{msgReceiveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sealNo != null">
+                seal_no = #{sealNo,jdbcType=VARCHAR},
+            </if>
+            <if test="senderCode != null">
+                sender_code = #{senderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="vessel != null">
+                vessel = #{vessel,jdbcType=VARCHAR},
+            </if>
+            <if test="voyage != null">
+                voyage = #{voyage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ssmTest.demo.entity.ImportOrExport">
+    update import_or_export
+    set bl_no = #{blNo,jdbcType=VARCHAR},
+      ctn_gross_weight = #{ctnGrossWeight,jdbcType=DOUBLE},
+      ctn_no = #{ctnNo,jdbcType=VARCHAR},
+      ctn_operator_code = #{ctnOperatorCode,jdbcType=VARCHAR},
+      ctn_size_type = #{ctnSizeType,jdbcType=VARCHAR},
+      ctn_status = #{ctnStatus,jdbcType=VARCHAR},
+      direct = #{direct,jdbcType=VARCHAR},
+      dl_port_code = #{dlPortCode,jdbcType=VARCHAR},
+      in_gate_time = #{inGateTime,jdbcType=TIMESTAMP},
+      msg_receive_time = #{msgReceiveTime,jdbcType=TIMESTAMP},
+      seal_no = #{sealNo,jdbcType=VARCHAR},
+      sender_code = #{senderCode,jdbcType=VARCHAR},
+      vessel = #{vessel,jdbcType=VARCHAR},
+      voyage = #{voyage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

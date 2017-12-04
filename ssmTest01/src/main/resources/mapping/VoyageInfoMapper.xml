@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssmTest.demo.mapper.VoyageInfoMapper">
+    <resultMap id="BaseResultMap" type="com.ssmTest.demo.entity.VoyageInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="arrival_date" jdbcType="TIMESTAMP" property="arrivalDate"/>
+        <result column="chn_description" jdbcType="VARCHAR" property="chnDescription"/>
+        <result column="ctn_apply_begin_date" jdbcType="TIMESTAMP" property="ctnApplyBeginDate"/>
+        <result column="ctn_apply_end_date" jdbcType="TIMESTAMP" property="ctnApplyEndDate"/>
+        <result column="ctn_end" jdbcType="TIMESTAMP" property="ctnEnd"/>
+        <result column="ctn_start" jdbcType="TIMESTAMP" property="ctnStart"/>
+        <result column="direction" jdbcType="VARCHAR" property="direction"/>
+        <result column="discharge_date" jdbcType="TIMESTAMP" property="dischargeDate"/>
+        <result column="eng_description" jdbcType="VARCHAR" property="engDescription"/>
+        <result column="eta_arrived_date" jdbcType="TIMESTAMP" property="etaArrivedDate"/>
+        <result column="eta_sailing_date" jdbcType="TIMESTAMP" property="etaSailingDate"/>
+        <result column="port_close_date" jdbcType="TIMESTAMP" property="portCloseDate"/>
+        <result column="ports" jdbcType="VARCHAR" property="ports"/>
+        <result column="termainal_code" jdbcType="VARCHAR" property="termainalCode"/>
+        <result column="vessel_code" jdbcType="VARCHAR" property="vesselCode"/>
+        <result column="voyage" jdbcType="VARCHAR" property="voyage"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, arrival_date, chn_description, ctn_apply_begin_date, ctn_apply_end_date, ctn_end, 
+    ctn_start, direction, discharge_date, eng_description, eta_arrived_date, eta_sailing_date, 
+    port_close_date, ports, termainal_code, vessel_code, voyage
+  </sql>
+    <select id="selectByExample" parameterType="com.ssmTest.demo.entity.VoyageInfoExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from voyage_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from voyage_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from voyage_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.ssmTest.demo.entity.VoyageInfoExample">
+        delete from voyage_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.ssmTest.demo.entity.VoyageInfo">
+    insert into voyage_info (id, arrival_date, chn_description, 
+      ctn_apply_begin_date, ctn_apply_end_date, 
+      ctn_end, ctn_start, direction, 
+      discharge_date, eng_description, eta_arrived_date, 
+      eta_sailing_date, port_close_date, ports, 
+      termainal_code, vessel_code, voyage
+      )
+    values (#{id,jdbcType=INTEGER}, #{arrivalDate,jdbcType=TIMESTAMP}, #{chnDescription,jdbcType=VARCHAR}, 
+      #{ctnApplyBeginDate,jdbcType=TIMESTAMP}, #{ctnApplyEndDate,jdbcType=TIMESTAMP}, 
+      #{ctnEnd,jdbcType=TIMESTAMP}, #{ctnStart,jdbcType=TIMESTAMP}, #{direction,jdbcType=VARCHAR}, 
+      #{dischargeDate,jdbcType=TIMESTAMP}, #{engDescription,jdbcType=VARCHAR}, #{etaArrivedDate,jdbcType=TIMESTAMP}, 
+      #{etaSailingDate,jdbcType=TIMESTAMP}, #{portCloseDate,jdbcType=TIMESTAMP}, #{ports,jdbcType=VARCHAR}, 
+      #{termainalCode,jdbcType=VARCHAR}, #{vesselCode,jdbcType=VARCHAR}, #{voyage,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.ssmTest.demo.entity.VoyageInfo">
+        insert into voyage_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="arrivalDate != null">
+                arrival_date,
+            </if>
+            <if test="chnDescription != null">
+                chn_description,
+            </if>
+            <if test="ctnApplyBeginDate != null">
+                ctn_apply_begin_date,
+            </if>
+            <if test="ctnApplyEndDate != null">
+                ctn_apply_end_date,
+            </if>
+            <if test="ctnEnd != null">
+                ctn_end,
+            </if>
+            <if test="ctnStart != null">
+                ctn_start,
+            </if>
+            <if test="direction != null">
+                direction,
+            </if>
+            <if test="dischargeDate != null">
+                discharge_date,
+            </if>
+            <if test="engDescription != null">
+                eng_description,
+            </if>
+            <if test="etaArrivedDate != null">
+                eta_arrived_date,
+            </if>
+            <if test="etaSailingDate != null">
+                eta_sailing_date,
+            </if>
+            <if test="portCloseDate != null">
+                port_close_date,
+            </if>
+            <if test="ports != null">
+                ports,
+            </if>
+            <if test="termainalCode != null">
+                termainal_code,
+            </if>
+            <if test="vesselCode != null">
+                vessel_code,
+            </if>
+            <if test="voyage != null">
+                voyage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="arrivalDate != null">
+                #{arrivalDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="chnDescription != null">
+                #{chnDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnApplyBeginDate != null">
+                #{ctnApplyBeginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ctnApplyEndDate != null">
+                #{ctnApplyEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ctnEnd != null">
+                #{ctnEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ctnStart != null">
+                #{ctnStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="direction != null">
+                #{direction,jdbcType=VARCHAR},
+            </if>
+            <if test="dischargeDate != null">
+                #{dischargeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="engDescription != null">
+                #{engDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="etaArrivedDate != null">
+                #{etaArrivedDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="etaSailingDate != null">
+                #{etaSailingDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="portCloseDate != null">
+                #{portCloseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ports != null">
+                #{ports,jdbcType=VARCHAR},
+            </if>
+            <if test="termainalCode != null">
+                #{termainalCode,jdbcType=VARCHAR},
+            </if>
+            <if test="vesselCode != null">
+                #{vesselCode,jdbcType=VARCHAR},
+            </if>
+            <if test="voyage != null">
+                #{voyage,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.ssmTest.demo.entity.VoyageInfoExample" resultType="java.lang.Long">
+        select count(*) from voyage_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update voyage_info
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.arrivalDate != null">
+                arrival_date = #{record.arrivalDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.chnDescription != null">
+                chn_description = #{record.chnDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ctnApplyBeginDate != null">
+                ctn_apply_begin_date = #{record.ctnApplyBeginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ctnApplyEndDate != null">
+                ctn_apply_end_date = #{record.ctnApplyEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ctnEnd != null">
+                ctn_end = #{record.ctnEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ctnStart != null">
+                ctn_start = #{record.ctnStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.direction != null">
+                direction = #{record.direction,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dischargeDate != null">
+                discharge_date = #{record.dischargeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.engDescription != null">
+                eng_description = #{record.engDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="record.etaArrivedDate != null">
+                eta_arrived_date = #{record.etaArrivedDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.etaSailingDate != null">
+                eta_sailing_date = #{record.etaSailingDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.portCloseDate != null">
+                port_close_date = #{record.portCloseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ports != null">
+                ports = #{record.ports,jdbcType=VARCHAR},
+            </if>
+            <if test="record.termainalCode != null">
+                termainal_code = #{record.termainalCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.vesselCode != null">
+                vessel_code = #{record.vesselCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.voyage != null">
+                voyage = #{record.voyage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update voyage_info
+        set id = #{record.id,jdbcType=INTEGER},
+        arrival_date = #{record.arrivalDate,jdbcType=TIMESTAMP},
+        chn_description = #{record.chnDescription,jdbcType=VARCHAR},
+        ctn_apply_begin_date = #{record.ctnApplyBeginDate,jdbcType=TIMESTAMP},
+        ctn_apply_end_date = #{record.ctnApplyEndDate,jdbcType=TIMESTAMP},
+        ctn_end = #{record.ctnEnd,jdbcType=TIMESTAMP},
+        ctn_start = #{record.ctnStart,jdbcType=TIMESTAMP},
+        direction = #{record.direction,jdbcType=VARCHAR},
+        discharge_date = #{record.dischargeDate,jdbcType=TIMESTAMP},
+        eng_description = #{record.engDescription,jdbcType=VARCHAR},
+        eta_arrived_date = #{record.etaArrivedDate,jdbcType=TIMESTAMP},
+        eta_sailing_date = #{record.etaSailingDate,jdbcType=TIMESTAMP},
+        port_close_date = #{record.portCloseDate,jdbcType=TIMESTAMP},
+        ports = #{record.ports,jdbcType=VARCHAR},
+        termainal_code = #{record.termainalCode,jdbcType=VARCHAR},
+        vessel_code = #{record.vesselCode,jdbcType=VARCHAR},
+        voyage = #{record.voyage,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ssmTest.demo.entity.VoyageInfo">
+        update voyage_info
+        <set>
+            <if test="arrivalDate != null">
+                arrival_date = #{arrivalDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="chnDescription != null">
+                chn_description = #{chnDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="ctnApplyBeginDate != null">
+                ctn_apply_begin_date = #{ctnApplyBeginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ctnApplyEndDate != null">
+                ctn_apply_end_date = #{ctnApplyEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ctnEnd != null">
+                ctn_end = #{ctnEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ctnStart != null">
+                ctn_start = #{ctnStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="direction != null">
+                direction = #{direction,jdbcType=VARCHAR},
+            </if>
+            <if test="dischargeDate != null">
+                discharge_date = #{dischargeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="engDescription != null">
+                eng_description = #{engDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="etaArrivedDate != null">
+                eta_arrived_date = #{etaArrivedDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="etaSailingDate != null">
+                eta_sailing_date = #{etaSailingDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="portCloseDate != null">
+                port_close_date = #{portCloseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ports != null">
+                ports = #{ports,jdbcType=VARCHAR},
+            </if>
+            <if test="termainalCode != null">
+                termainal_code = #{termainalCode,jdbcType=VARCHAR},
+            </if>
+            <if test="vesselCode != null">
+                vessel_code = #{vesselCode,jdbcType=VARCHAR},
+            </if>
+            <if test="voyage != null">
+                voyage = #{voyage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ssmTest.demo.entity.VoyageInfo">
+        update voyage_info
+        set arrival_date = #{arrivalDate,jdbcType=TIMESTAMP},
+        chn_description = #{chnDescription,jdbcType=VARCHAR},
+        ctn_apply_begin_date = #{ctnApplyBeginDate,jdbcType=TIMESTAMP},
+        ctn_apply_end_date = #{ctnApplyEndDate,jdbcType=TIMESTAMP},
+        ctn_end = #{ctnEnd,jdbcType=TIMESTAMP},
+        ctn_start = #{ctnStart,jdbcType=TIMESTAMP},
+        direction = #{direction,jdbcType=VARCHAR},
+        discharge_date = #{dischargeDate,jdbcType=TIMESTAMP},
+        eng_description = #{engDescription,jdbcType=VARCHAR},
+        eta_arrived_date = #{etaArrivedDate,jdbcType=TIMESTAMP},
+        eta_sailing_date = #{etaSailingDate,jdbcType=TIMESTAMP},
+        port_close_date = #{portCloseDate,jdbcType=TIMESTAMP},
+        ports = #{ports,jdbcType=VARCHAR},
+        termainal_code = #{termainalCode,jdbcType=VARCHAR},
+        vessel_code = #{vesselCode,jdbcType=VARCHAR},
+        voyage = #{voyage,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
